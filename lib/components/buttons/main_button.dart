@@ -7,10 +7,15 @@ class MainButton extends StatelessWidget {
     required this.h,
     required this.title,
     required this.ontap,
+    this.bgcolor = AppColors.primarycolor,
+    this.bordercolor, this.txtcolor,
   });
 
   final double h;
   final String title;
+  final Color bgcolor;
+  final Color? bordercolor;
+  final Color? txtcolor;
   final Function() ontap;
 
   @override
@@ -22,15 +27,20 @@ class MainButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: AppColors.whitecolor,
-          backgroundColor: AppColors.primarycolor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+          backgroundColor: bgcolor,
+          side: bordercolor != null
+              ? BorderSide(color: bordercolor ?? AppColors.darkcolor)
+              : BorderSide.none,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         onPressed: ontap,
         child: Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: txtcolor ?? AppColors.whitecolor,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/core/constants/app_colors.dart';
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/routes/navigation.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,9 +34,22 @@ class Welcome extends StatelessWidget {
                   style: TextStyles.textsize18(color: AppColors.darkcolor),
                 ),
                 Spacer(flex: 5),
-                MainButton(h: 56, title: 'Login', ontap: () {}),
+                MainButton(
+                  h: 56,
+                  title: 'Login',
+                  ontap: () {
+                    pushto(context, Routes.login);
+                  },
+                ),
                 SizedBox(height: 15),
-                MainButton(h: 56, title: 'Register', ontap: () {}),
+                MainButton(
+                  h: 56,
+                  bordercolor: AppColors.darkcolor,
+                  bgcolor: AppColors.whitecolor,
+                  txtcolor: AppColors.primarycolor,
+                  title: 'Register',
+                  ontap: () {},
+                ),
                 Spacer(flex: 1),
               ],
             ),

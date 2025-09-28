@@ -1,5 +1,7 @@
 import 'package:bookia/core/constants/app_colors.dart';
 import 'package:bookia/core/constants/app_images.dart';
+import 'package:bookia/core/routes/navigation.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,14 +14,14 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  // @override
-  // void initState() {
-  //   super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-  //   Future.delayed(Duration(seconds: 3), (){
-
-  //   });
-  // }
+    Future.delayed(Duration(seconds: 8), () {
+      pushrplc(context,Routes.welcome);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

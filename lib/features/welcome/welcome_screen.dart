@@ -6,6 +6,7 @@ import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -48,7 +49,9 @@ class Welcome extends StatelessWidget {
                   bgcolor: AppColors.whitecolor,
                   txtcolor: AppColors.primarycolor,
                   title: 'Register',
-                  ontap: () {},
+                  ontap: () {
+                    pushto(context, Routes.signup);
+                  },
                 ),
                 Spacer(flex: 1),
               ],

@@ -88,8 +88,7 @@ class Otpverfication extends StatelessWidget {
                   ],
                 ),
               ),
-              separatorBuilder: (index) =>
-                  const SizedBox(width: 35),
+              separatorBuilder: (index) => const SizedBox(width: 35),
             ),
             SizedBox(height: 40),
             MainButton(h: 55, title: 'Send Code', ontap: () {}),

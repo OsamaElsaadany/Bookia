@@ -1,5 +1,6 @@
-
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primarycolor = Color(0xffBFA054);
@@ -11,5 +12,5 @@ class AppColors {
   static const Color accentcolor = Color(0xffF7F8F9);
   static const Color blackcolor = Color(0xff000000);
   static const Color cardcolor = Color(0xffF5EFE1);
-
+  static const Color redcolor = Colors.red;
 }

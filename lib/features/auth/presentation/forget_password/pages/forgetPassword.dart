@@ -15,7 +15,7 @@ class Forgetpassword extends StatelessWidget {
     var emailcontroller = TextEditingController();
     return Scaffold(
       appBar: AppBarWithBack(),
-      body: BuildLoginBody(emailcontroller,context),
+      body: BuildLoginBody(emailcontroller, context),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,7 +31,10 @@ class Forgetpassword extends StatelessWidget {
     );
   }
 
-  Padding BuildLoginBody(TextEditingController emailcontroller,BuildContext context) {
+  Padding BuildLoginBody(
+    TextEditingController emailcontroller,
+    BuildContext context,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(22.0),
       child: SingleChildScrollView(

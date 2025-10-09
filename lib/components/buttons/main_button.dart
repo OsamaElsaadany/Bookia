@@ -8,7 +8,8 @@ class MainButton extends StatelessWidget {
     required this.title,
     required this.ontap,
     this.bgcolor = AppColors.primarycolor,
-    this.bordercolor, this.txtcolor,
+    this.bordercolor,
+    this.txtcolor,
   });
 
   final double h;

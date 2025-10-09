@@ -19,7 +19,7 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     Future.delayed(Duration(seconds: 3), () {
-      pushrplc(context,Routes.createnewpassword);
+      pushrplc(context, Routes.welcome);
     });
   }
 

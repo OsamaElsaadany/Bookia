@@ -9,5 +9,5 @@ class AuthSuccessState extends AuthState {}
 class AuthErrorState extends AuthState {
   final String errorMessage;
 
-  AuthErrorState(this.errorMessage);
+  AuthErrorState({required this.errorMessage});
 }

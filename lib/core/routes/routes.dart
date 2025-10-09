@@ -28,7 +28,11 @@ class Routes {
     routes: [
       GoRoute(path: splash, builder: (context, state) => const Splash()),
       GoRoute(path: welcome, builder: (context, state) => const Welcome()),
-      GoRoute(path: login, builder: (context, state) => const LoginScreen()),
+      GoRoute(
+        path: login,
+         builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const LoginScreen())),
       GoRoute(
         path: signup,
         builder: (context, state) => BlocProvider(

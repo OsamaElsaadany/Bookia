@@ -24,15 +24,21 @@ class AuthRepo {
     }
   }
 
-  login(AuthParams params) async {
-    var res = await DioProvider.post(
-      endpoint: ApiEndpoints.login,
-      data: params.toJson(),
-    );
-    if (res.statusCode == 200) {
-      // print('User logged in successfully');
-    } else {
-      //
+  static Future<AuthResponse?> login(AuthParams params) async {
+    try {
+      var res = await DioProvider.post(
+        endpoint: ApiEndpoints.login,
+        data: params.toJson(),
+      );
+      if (res.statusCode == 200) {
+        var body = res.data;
+        return AuthResponse.fromJson(body);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
     }
   }
 }

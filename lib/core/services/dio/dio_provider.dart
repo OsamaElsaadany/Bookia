@@ -5,7 +5,7 @@ class DioProvider {
   static late Dio dio;
 
   static init() {
-    dio = Dio(BaseOptions(baseUrl:ApiEndpoints.baseUrl));
+    dio = Dio(BaseOptions(baseUrl: ApiEndpoints.baseUrl));
   }
 
   static Future<Response> post({

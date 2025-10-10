@@ -41,4 +41,58 @@ class AuthRepo {
       return null;
     }
   }
+
+  static Future<AuthResponse?> sendForgetPassword(AuthParams params) async {
+    try {
+      var res = await DioProvider.post(
+        endpoint: ApiEndpoints.sendForgetPassword,
+        data: params.toJson(),
+      );
+      if (res.statusCode == 200) {
+        var body = res.data;
+        return AuthResponse.fromJson(body);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+  static Future<AuthResponse?> checkForgetPassword(AuthParams params) async {
+    try {
+      var res = await DioProvider.post(
+        endpoint: ApiEndpoints.checkForgetPassword,
+        data: params.toJson(),
+      );
+      if (res.statusCode == 200) {
+        var body = res.data;
+        return AuthResponse.fromJson(body);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+  static Future<AuthResponse?> resetPassword(AuthParams params) async {
+    try {
+      var res = await DioProvider.post(
+        endpoint: ApiEndpoints.resetPassword,
+        data: params.toJson(),
+      );
+      if (res.statusCode == 200) {
+        var body = res.data;
+        return AuthResponse.fromJson(body);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
 }

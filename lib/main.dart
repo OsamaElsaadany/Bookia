@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   DioProvider.init();
   runApp(
     DevicePreview(enabled: kDebugMode, builder: (context) => const MainApp()),

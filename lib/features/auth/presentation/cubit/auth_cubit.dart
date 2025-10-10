@@ -12,6 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
   var passwordcontroller = TextEditingController();
   var namecontroller = TextEditingController();
   var confirmpasswordcontroller = TextEditingController();
+  var otpcontroller = TextEditingController();
 
   register() async {
     emit(AuthLoadingState());
@@ -42,6 +43,46 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccessState());
     } else {
       emit(AuthErrorState(errorMessage: 'login failed'));
+    }
+  }
+
+  sendForgetPassword() async {
+    emit(AuthLoadingState());
+
+    var params = AuthParams(email: emailcontroller.text);
+    var res = await AuthRepo.sendForgetPassword(params);
+    if (res != null) {
+      emit(AuthSuccessState());
+    } else {
+      emit(AuthErrorState(errorMessage: 'failed to send reset email'));
+    }
+  }
+
+  checkForgetPassword() async {
+    emit(AuthLoadingState());
+
+    var params = AuthParams(verifycode: otpcontroller.text, email: emailcontroller.text);
+    var res = await AuthRepo.checkForgetPassword(params);
+    if (res != null) {
+      emit(AuthSuccessState());
+    } else {
+      emit(AuthErrorState(errorMessage: 'failed to verify OTP'));
+    }
+  }
+
+  resetPassword() async {
+    emit(AuthLoadingState());
+
+    var params = AuthParams(
+      verifycode: otpcontroller.text,
+      password: passwordcontroller.text,
+      confirmpassword: confirmpasswordcontroller.text,
+    );
+    var res = await AuthRepo.resetPassword(params);
+    if (res != null) {
+      emit(AuthSuccessState());
+    } else {
+      emit(AuthErrorState(errorMessage: 'failed to reset password'));
     }
   }
 }

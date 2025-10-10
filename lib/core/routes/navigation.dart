@@ -13,6 +13,6 @@ pop(BuildContext context) {
   context.pop();
 }
 
-pushandrm(BuildContext context, String route) {
-  context.go(route);
+void pushandrm(BuildContext context, String route, {Object? extra}) {
+  GoRouter.of(context).pushReplacement(route, extra: extra);
 }

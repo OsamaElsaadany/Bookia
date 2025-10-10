@@ -46,7 +46,7 @@ class SignupScreen extends StatelessWidget {
           log('success');
         } else if (state is AuthErrorState) {
           pop(context);
-          showErrorDialog(context,state.errorMessage);
+          showErrorDialog(context, state.errorMessage);
         }
       },
       child: Padding(

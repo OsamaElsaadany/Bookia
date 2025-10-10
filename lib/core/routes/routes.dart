@@ -30,9 +30,11 @@ class Routes {
       GoRoute(path: welcome, builder: (context, state) => const Welcome()),
       GoRoute(
         path: login,
-         builder: (context, state) => BlocProvider(
+        builder: (context, state) => BlocProvider(
           create: (context) => AuthCubit(),
-          child: const LoginScreen())),
+          child: const LoginScreen(),
+        ),
+      ),
       GoRoute(
         path: signup,
         builder: (context, state) => BlocProvider(
@@ -50,7 +52,10 @@ class Routes {
       ),
       GoRoute(
         path: forgetpassword,
-        builder: (context, state) => const Forgetpassword(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const Forgetpassword(),
+        ),
       ),
       GoRoute(
         path: passwordChanged,
@@ -58,12 +63,23 @@ class Routes {
       ),
       GoRoute(
         path: otpverfication,
-        builder: (context, state) => const Otpverfication(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const Otpverfication(),
+        ),
       ),
       GoRoute(
-        path: createnewpassword,
-        builder: (context, state) => const Createnewpassword(),
-      ),
+  path: createnewpassword,
+  builder: (context, state) {
+    final verifyCode = state.extra as String?; // هنا ناخد الكود من extra
+
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: Createnewpassword(verifyCode: verifyCode ?? ''),
+    );
+  },
+),
+
     ],
   );
 }

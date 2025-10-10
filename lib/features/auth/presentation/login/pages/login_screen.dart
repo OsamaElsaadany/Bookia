@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                 CustomTextField(
                   controller: cubit.passwordcontroller,
                   hint: 'Enter your password',
-                  validator: (value){
+                  validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password is reqiured';
                     } else if (value.length < 6) {
@@ -114,11 +114,15 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 15),
-                MainButton(h: 55, title: 'Login', ontap: () {
-                  if(cubit.formkey.currentState!.validate()){
-                    cubit.login();
-                  }
-                }),
+                MainButton(
+                  h: 55,
+                  title: 'Login',
+                  ontap: () {
+                    if (cubit.formkey.currentState!.validate()) {
+                      cubit.login();
+                    }
+                  },
+                ),
                 SizedBox(height: 30),
                 socialLogin(),
               ],

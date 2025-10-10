@@ -2,8 +2,6 @@ import 'package:bookia/core/constants/app_colors.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-
-
 showErrorDialog(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

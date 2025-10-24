@@ -1,13 +1,12 @@
 class AuthState {}
 
-class AuthInitialState extends AuthState {}
+class AuthInitial extends AuthState {}
 
 class AuthLoadingState extends AuthState {}
 
 class AuthSuccessState extends AuthState {}
 
 class AuthErrorState extends AuthState {
-  final String errorMessage;
-
-  AuthErrorState({required this.errorMessage});
+  final String message;
+  AuthErrorState({required this.message});
 }

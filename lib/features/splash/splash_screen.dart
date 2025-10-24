@@ -1,26 +1,31 @@
-import 'package:bookia/core/constants/app_colors.dart';
 import 'package:bookia/core/constants/app_images.dart';
-import 'package:bookia/core/routes/navigation.dart';
+import 'package:bookia/core/routes/navigator.dart';
 import 'package:bookia/core/routes/routes.dart';
-import 'package:bookia/core/utils/text_styles.dart';
+import 'package:bookia/core/services/local/shered_preferences.dart';
+import 'package:bookia/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    super.initState();
-
+    var user = SheredPreferences.getUserData();
+    // TODO: implement initState
     Future.delayed(Duration(seconds: 3), () {
-      pushrplc(context, Routes.welcome);
+      if (user != null) {
+        pushAndRemoveUntil(context, Routes.mainscreen);
+      } else {
+        pushAndRemoveUntil(context, Routes.welcome);
+      }
     });
+    super.initState();
   }
 
   @override
@@ -30,12 +35,8 @@ class _SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppImages.logoSvg),
-            SizedBox(height: 10),
-            Text(
-              'Order Your Book Now!',
-              style: TextStyles.textsize18(color: AppColors.darkcolor),
-            ),
+            SvgPicture.asset(AppImages.logosvg),
+            Text('Order Your Book Now!', style: TextStyles.styleSize18()),
           ],
         ),
       ),

@@ -5,84 +5,87 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitialState());
+  AuthCubit() : super(AuthInitial());
 
-  var formkey = GlobalKey<FormState>();
-  var emailcontroller = TextEditingController();
-  var passwordcontroller = TextEditingController();
-  var namecontroller = TextEditingController();
-  var confirmpasswordcontroller = TextEditingController();
-  var otpcontroller = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var userNameController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+  var pinController = TextEditingController();
+  var newPasswordController = TextEditingController();
+  var confirmNewPasswordController = TextEditingController();
+  bool isPasswordVisible = true;
+  bool isConfirmPasswordVisible = true;
+  bool isConfirmNewPasswordVisible = true;
+  bool isNewPasswordVisible = true;
 
   register() async {
     emit(AuthLoadingState());
-
-    var params = AuthParams(
-      name: namecontroller.text,
-      email: emailcontroller.text,
-      password: passwordcontroller.text,
-      confirmpassword: confirmpasswordcontroller.text,
+    var res = await AuthRepo.register(
+      AuthParams(
+        name: userNameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+        passwordConfirmation: confirmPasswordController.text,
+      ),
     );
-    var res = await AuthRepo.regester(params);
-    if (res != null) {
+    if (res != null && res.status == 201) {
       emit(AuthSuccessState());
     } else {
-      emit(AuthErrorState(errorMessage: 'Registration failed'));
+      emit(AuthErrorState(message: 'Register Failed'));
     }
   }
 
   login() async {
     emit(AuthLoadingState());
-
-    var params = AuthParams(
-      email: emailcontroller.text,
-      password: passwordcontroller.text,
+    var res = await AuthRepo.login(
+      AuthParams(
+        email: emailController.text,
+        password: passwordController.text,
+      ),
     );
-    var res = await AuthRepo.login(params);
-    if (res != null) {
+    if (res != null && res.status == 200) {
       emit(AuthSuccessState());
     } else {
-      emit(AuthErrorState(errorMessage: 'login failed'));
+      emit(AuthErrorState(message: 'Login Failed'));
     }
   }
 
-  sendForgetPassword() async {
+  forgetPassword() async {
     emit(AuthLoadingState());
-
-    var params = AuthParams(email: emailcontroller.text);
-    var res = await AuthRepo.sendForgetPassword(params);
-    if (res != null) {
+    var res = await AuthRepo.forgetpassword(emailController.text);
+    if (res != null && res.status == 200) {
       emit(AuthSuccessState());
     } else {
-      emit(AuthErrorState(errorMessage: 'failed to send reset email'));
+      emit(AuthErrorState(message: 'Email Not Found'));
     }
   }
 
-  checkForgetPassword() async {
+  otp() async {
     emit(AuthLoadingState());
-
-    var params = AuthParams(verifycode: otpcontroller.text, email: emailcontroller.text);
-    var res = await AuthRepo.checkForgetPassword(params);
-    if (res != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(errorMessage: 'failed to verify OTP'));
-    }
-  }
-
-  resetPassword() async {
-    emit(AuthLoadingState());
-
-    var params = AuthParams(
-      verifycode: otpcontroller.text,
-      password: passwordcontroller.text,
-      confirmpassword: confirmpasswordcontroller.text,
+    var res = await AuthRepo.otp(
+      emailController.text,
+      int.parse(pinController.text),
     );
-    var res = await AuthRepo.resetPassword(params);
-    if (res != null) {
+    if (res != null && res.status == 200) {
       emit(AuthSuccessState());
     } else {
-      emit(AuthErrorState(errorMessage: 'failed to reset password'));
+      emit(AuthErrorState(message: 'OTP Failed'));
+    }
+  }
+
+  resetPassword(int code) async {
+    emit(AuthLoadingState());
+    var res = await AuthRepo.resetPassword(
+      code,
+      newPasswordController.text,
+      confirmNewPasswordController.text,
+    );
+    if (res != null && res.status == 200) {
+      emit(AuthSuccessState());
+    } else {
+      emit(AuthErrorState(message: 'Reset Password Failed'));
     }
   }
 }

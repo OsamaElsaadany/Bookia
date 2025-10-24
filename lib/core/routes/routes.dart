@@ -1,85 +1,111 @@
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/forget_password/pages/createNewpassword.dart';
-import 'package:bookia/features/auth/presentation/forget_password/pages/forgetPassword.dart';
-import 'package:bookia/features/auth/presentation/forget_password/pages/otpVerfication.dart';
-import 'package:bookia/features/auth/presentation/forget_password/pages/passwordChanged.dart';
+import 'package:bookia/features/auth/presentation/forget_password/pages/creat_password.dart';
+import 'package:bookia/features/auth/presentation/forget_password/pages/forget_password_screen.dart';
+import 'package:bookia/features/auth/presentation/forget_password/pages/otp_screen.dart';
+import 'package:bookia/features/auth/presentation/forget_password/pages/password_changed_screen.dart';
 import 'package:bookia/features/auth/presentation/login/pages/login_screen.dart';
-import 'package:bookia/features/auth/presentation/register/pages/Signup_screen.dart';
-import 'package:bookia/features/home/homeScreen.dart';
-import 'package:bookia/features/main/mainAppScreen.dart';
+import 'package:bookia/features/auth/presentation/register/pages/register_screen.dart';
+import 'package:bookia/features/book_details/presentation/cubit/book_details_cubit.dart';
+import 'package:bookia/features/book_details/presentation/pages/book_details.dart';
+import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bookia/features/cart/presentation/pages/place_order.dart';
+import 'package:bookia/features/home/data/models/best_seller_response/product.dart';
+import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
+import 'package:bookia/features/home/presentation/pages/details_screen.dart';
+import 'package:bookia/features/home/presentation/pages/home_screen.dart';
+import 'package:bookia/features/main/pages/main_screen.dart';
+import 'package:bookia/features/profile/pages/edit_profile.dart';
+import 'package:bookia/features/profile/pages/my_order.dart';
+import 'package:bookia/features/profile/pages/reset_password.dart';
 import 'package:bookia/features/splash/splash_screen.dart';
-import 'package:bookia/features/welcome/welcome_screen.dart';
+import 'package:bookia/features/welcome_screen/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
   static const String splash = '/';
-  static const String welcome = '/Welcome';
-  static const String login = '/LoginScreen';
-  static const String signup = '/SignupScreen';
-  static const String passwordChanged = '/Passwordchanged';
-  static const String forgetpassword = '/Forgetpassword';
-  static const String otpverfication = '/Otpverfication';
-  static const String createnewpassword = '/Createnewpassword';
-  static const String homescreen = '/Homescreen';
-  static const String mainappScreen = '/MainappScreen';
+  static const String welcome = '/welcome';
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String forgetPassword = '/forgetPassword';
+  static const String otp = '/otp';
+  static const String creatPassword = '/creatPassword';
+  static const String passwordChanged = '/passwordChanged';
+  static const String home = '/home';
+  static const String details = '/details';
+  static const String mainscreen = '/mainscreen';
+  static const String bookdetails = '/bookdetails';
+  static const String placeOrder = '/placeOrder';
+  static const String myOrder = '/myOrder';
+  static const String editProfile = '/editProfile';
+  static const String resetPassword = '/resetPassword';
 
-  static GoRouter routes = GoRouter(
+  static GoRouter route = GoRouter(
     routes: [
-      GoRoute(path: splash, builder: (context, state) => const Splash()),
-      GoRoute(path: welcome, builder: (context, state) => const Welcome()),
+      GoRoute(path: splash, builder: (context, state) => const SplashScreen()),
+      GoRoute(path: myOrder, builder: (context, state) => const MyOrder()),
+      GoRoute(path: editProfile, builder: (context, state) => const EditProfile()),
+      GoRoute(path: resetPassword, builder: (context, state) => const ResetPassword()),
+      GoRoute(path: welcome, builder: (context, state) => const WelcomeScreen()),
       GoRoute(
         path: login,
+        builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const LoginScreen()),
+      ),
+      GoRoute(
+        path: register,
+        builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const RegisterScreen()),
+      ),
+      GoRoute(
+        path: forgetPassword,
+        builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const ForgetPasswordScreen()),
+      ),
+      GoRoute(
+        path: otp,
+        builder: (context, state) {
+          var email = state.extra as String;
+          return BlocProvider(
+            create: (context) => AuthCubit(),
+            child: OtpScreen(email: email),
+          );
+        },
+      ),
+      GoRoute(
+        path: creatPassword,
+        builder: (context, state) {
+          var otp = state.extra as int;
+          return BlocProvider(
+            create: (context) => AuthCubit(),
+            child: CreatPassword(otp: otp),
+          );
+        },
+      ),
+      GoRoute(path: passwordChanged, builder: (context, state) => const PasswordChangedScreen()),
+      GoRoute(path: home, builder: (context, state) => const HomeScreen()),
+      GoRoute(
+        path: details,
+        builder: (context, state) {
+          final product = state.extra as Product;
+          return BlocProvider(
+            create: (context) => HomeCubit(),
+            child: DetailsScreen(book: product),
+          );
+        },
+      ),
+      GoRoute(
+        path: mainscreen,
+        builder: (context, state) => MainScreen(index: state.extra as int?),
+      ),
+      GoRoute(
+        path: bookdetails,
+        builder: (context, state) => BlocProvider(create: (context) => BookDetailsCubit()..getBookDetails(), child: const BookDetails()),
+      ),
+      GoRoute(
+        path: placeOrder,
         builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const LoginScreen(),
+          create: (context) => CartCubit()..refillData(),
+          child: PlaceOrder(total: state.extra as String),
         ),
       ),
-      GoRoute(
-        path: signup,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const SignupScreen(),
-        ),
-      ),
-      GoRoute(
-        path: homescreen,
-        builder: (context, state) => const Homescreen(),
-      ),
-      GoRoute(
-        path: mainappScreen,
-        builder: (context, state) => const MainappScreen(),
-      ),
-      GoRoute(
-        path: forgetpassword,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const Forgetpassword(),
-        ),
-      ),
-      GoRoute(
-        path: passwordChanged,
-        builder: (context, state) => const Passwordchanged(),
-      ),
-      GoRoute(
-        path: otpverfication,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const Otpverfication(),
-        ),
-      ),
-      GoRoute(
-  path: createnewpassword,
-  builder: (context, state) {
-    final verifyCode = state.extra as String?; // هنا ناخد الكود من extra
-
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: Createnewpassword(verifyCode: verifyCode ?? ''),
-    );
-  },
-),
-
     ],
   );
 }

@@ -1,46 +1,48 @@
-import 'package:bookia/core/constants/app_colors.dart';
+import 'package:bookia/core/utils/colors.dart';
+import 'package:bookia/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
   const MainButton({
     super.key,
-    required this.h,
     required this.title,
-    required this.ontap,
-    this.bgcolor = AppColors.primarycolor,
+    this.textColor,
+    this.backgroundColor,
     this.bordercolor,
-    this.txtcolor,
+    this.width = double.infinity,
+    this.height = 56,
+    required this.onPressed,
   });
 
-  final double h;
   final String title;
-  final Color bgcolor;
+  final Color? textColor;
+  final Color? backgroundColor;
   final Color? bordercolor;
-  final Color? txtcolor;
-  final Function() ontap;
+  final double? width;
+  final double? height;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: h,
-
+      width: width,
+      height: height,
       child: ElevatedButton(
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          foregroundColor: AppColors.whitecolor,
-          backgroundColor: bgcolor,
+          overlayColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(10),
+          ),
+          backgroundColor: backgroundColor ?? AppColors.primaryColor,
           side: bordercolor != null
-              ? BorderSide(color: bordercolor ?? AppColors.darkcolor)
+              ? BorderSide(color: AppColors.darkColor)
               : BorderSide.none,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        onPressed: ontap,
         child: Text(
           title,
-          style: TextStyle(
-            color: txtcolor ?? AppColors.whitecolor,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
+          style: TextStyles.styleSize18(
+            color: textColor ?? AppColors.borderColor,
           ),
         ),
       ),

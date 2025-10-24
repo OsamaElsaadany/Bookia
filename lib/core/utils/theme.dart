@@ -1,32 +1,39 @@
-import 'package:bookia/core/constants/app_colors.dart';
 import 'package:bookia/core/constants/app_fonts.dart';
+import 'package:bookia/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-class apptheme {
-  static get lighttheme => ThemeData(
-    scaffoldBackgroundColor: AppColors.whitecolor,
+class AppTheme {
+  static get lightTheme => ThemeData(
+    scaffoldBackgroundColor: AppColors.wightColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.whitecolor,
+      color: AppColors.wightColor,
       centerTitle: true,
       surfaceTintColor: Colors.transparent,
+      elevation: 0,
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.primarycolor,
-      onSurface: AppColors.darkcolor,
+      seedColor: AppColors.primaryColor,
+      onSurface: AppColors.darkColor,
     ),
-    fontFamily: AppFonts.DMSeriffont,
-    dividerColor: AppColors.bordercolor,
+    fontFamily: AppFonts.dMSerifDisplay,
+    dividerColor: AppColors.greyColor,
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: AppColors.accentcolor,
-      filled: true,
-      // border: InputBorder.none,
+      hintStyle: TextStyle(color: AppColors.greyColor),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: AppColors.bordercolor),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: AppColors.borderColor),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: AppColors.blackcolor),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: AppColors.borderColor),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: AppColors.redColor),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: AppColors.redColor),
       ),
     ),
   );
